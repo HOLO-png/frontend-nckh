@@ -35,6 +35,7 @@ function Weather() {
     if (!weather) return "bg-set";
     const threshold = units === "metric" ? 20 : 60;
     if (weather.temp <= threshold) return "bg-set";
+
     return "bg-set";
   };
 

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 // ** React Imports
 import { Fragment } from 'react'
 

@@ -13,6 +13,7 @@ const FormWrapper = (props, ref) => {
     if (ref) {
       ref.current = form
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

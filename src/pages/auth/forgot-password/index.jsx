@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 // ** Next Imports
 import Link from 'next/link'
 

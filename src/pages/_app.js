@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 // ** Next Imports
 import Head from 'next/head'
 import { Router } from 'next/router'
