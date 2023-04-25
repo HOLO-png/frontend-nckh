@@ -11,9 +11,12 @@ import ListItemText from '@mui/material/ListItemText'
 import Avatar from '@mui/material/Avatar'
 import Fab from '@mui/material/Fab'
 import SendCircleOutline from 'mdi-material-ui/SendCircleOutline'
+import { useSession } from 'next-auth/react'
 
 const Chat = () => {
-  // const classes = useStyles()
+  const session = useSession()
+  const { data: user } = session
+  const userInfo = user?.user.user
 
   return (
     <div>
@@ -29,37 +32,12 @@ const Chat = () => {
           <List>
             <ListItem button key='RemySharp'>
               <ListItemIcon>
-                <Avatar alt='Remy Sharp' src='https://material-ui.com/static/images/avatar/1.jpg' />
+                <Avatar alt='Remy Sharp' src={userInfo.avatar} />
               </ListItemIcon>
-              <ListItemText primary='John Wick'></ListItemText>
+              <ListItemText primary={userInfo.fullname}></ListItemText>
             </ListItem>
           </List>
           <Divider />
-          <Grid item xs={12} style={{ padding: '10px' }}>
-            <TextField id='outlined-basic-email' label='Search' variant='outlined' fullWidth />
-          </Grid>
-          <Divider />
-          <List>
-            <ListItem button key='RemySharp'>
-              <ListItemIcon>
-                <Avatar alt='Remy Sharp' src='https://material-ui.com/static/images/avatar/1.jpg' />
-              </ListItemIcon>
-              <ListItemText primary='Remy Sharp'>Remy Sharp</ListItemText>
-              <ListItemText secondary='online' align='right'></ListItemText>
-            </ListItem>
-            <ListItem button key='Alice'>
-              <ListItemIcon>
-                <Avatar alt='Alice' src='https://material-ui.com/static/images/avatar/3.jpg' />
-              </ListItemIcon>
-              <ListItemText primary='Alice'>Alice</ListItemText>
-            </ListItem>
-            <ListItem button key='CindyBaker'>
-              <ListItemIcon>
-                <Avatar alt='Cindy Baker' src='https://material-ui.com/static/images/avatar/2.jpg' />
-              </ListItemIcon>
-              <ListItemText primary='Cindy Baker'>Cindy Baker</ListItemText>
-            </ListItem>
-          </List>
         </Grid>
         <Grid item xs={9}>
           <List
