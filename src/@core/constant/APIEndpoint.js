@@ -1,6 +1,6 @@
-// export const API_URL = 'https://nodejs-api-7u44.onrender.com'
+export const API_URL = 'https://nodejs-api-7u44.onrender.com'
 
-export const API_URL = 'http://localhost:8080'
+// export const API_URL = 'http://localhost:8080'
 
 
 export const LOGIN_ENDPOINT = '/api/login'
