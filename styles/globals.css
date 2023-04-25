@@ -45,6 +45,12 @@ code[class*='language-'] {
   align-items: center;
 }
 
+section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .button {
   color: #ffffff;
   font-size: 1.225rem;

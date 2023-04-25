@@ -1,12 +1,11 @@
-// export { default } from "next-auth/middleware";
 import { withAuth } from 'next-auth/middleware'
 import { NextResponse } from 'next/server'
 
 export default withAuth(
-  // `withAuth` augments your `Request` with the user's token.
-  function middleware(req) {
+  async (req) => {
+    console.log(req.url);
     if (!req.nextauth.token) {
-      return NextResponse.rewrite(new URL('/auth/login', req.url))
+      return NextResponse.rewrite(new URL(req.url + '/auth/login', req.url))
     }
   },
   {
@@ -17,5 +16,8 @@ export default withAuth(
 )
 
 export const config = {
-  matcher: ['/']
+  api: {
+    bodyParser: false,
+  },
+  matcher: ['/', '/account-settings', '/chatbox', '/control-panel/:path*', '/monitoring', '/weather']
 }

@@ -13,16 +13,14 @@ import MuiTab from '@mui/material/Tab'
 // ** Icons Imports
 import AccountOutline from 'mdi-material-ui/AccountOutline'
 import LockOpenOutline from 'mdi-material-ui/LockOpenOutline'
-import InformationOutline from 'mdi-material-ui/InformationOutline'
 
 // ** Demo Tabs Imports
-import TabInfo from 'src/views/account-settings/TabInfo'
 import TabAccount from 'src/views/account-settings/TabAccount'
 import TabSecurity from 'src/views/account-settings/TabSecurity'
 
 // ** Third Party Styles Imports
 import 'react-datepicker/dist/react-datepicker.css'
-import { REGEX_EMAIL } from 'src/@core/constant'
+import { } from 'src/@core/constant'
 
 const Tab = styled(MuiTab)(({ theme }) => ({
   [theme.breakpoints.down('md')]: {
@@ -41,8 +39,6 @@ const TabName = styled('span')(({ theme }) => ({
     display: 'none'
   }
 }))
-
-
 
 const AccountSettings = () => {
   // ** State

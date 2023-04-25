@@ -1,5 +1,6 @@
 import CredentialsProvider from 'next-auth/providers/credentials'
 import NextAuth from 'next-auth'
+import { API_URL } from 'src/@core/constant/APIEndpoint'
 
 export const authOptions = {
   providers: [
@@ -18,7 +19,7 @@ export const authOptions = {
       },
       async authorize(credentials, req) {
         const { phoneNumber, password } = credentials
-        const res = await fetch('http://localhost:8080/api/login', {
+        const res = await fetch(`${API_URL}/api/login`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -44,7 +45,7 @@ export const authOptions = {
         token = { user: session }
         console.log({ user: { ...user, ...session } });
 
-        return { user: { ...user, ...session } }
+        return { ...user, ...session }
       }
 
       return { ...user, ...token }

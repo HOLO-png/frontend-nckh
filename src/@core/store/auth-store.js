@@ -69,9 +69,7 @@ export const useAuthStore = create((set) => {
         const res = await ApiCore.patch(endpoint, params, {
           headers: { Authorization: auth.access_token }
         })
-        console.log({ user: { ...auth.user, ...res.data } });
-
-        onSuccess({ user: { ...auth.user, ...res.data } })
+        onSuccess({ user: { ...auth.user, ...res.data.data } })
         dispatchNotification('info', 'Updated user', 'You changed user information successfuly')
       } catch (error) {
         console.log(error);

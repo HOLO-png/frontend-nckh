@@ -1,5 +1,5 @@
 // ** React Imports
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 
 // ** MUI Imports
 import Box from '@mui/material/Box'
@@ -95,18 +95,17 @@ const TabAccount = () => {
       defaultValue: userInfo?.email
     },
     {
-      name: 'cmnd',
+      name: 'identify',
       type: 'number',
       label: 'Identity card number',
       required: { value: true, message: 'Identity card number is required' },
       maxLength: { value: 10, message: 'Identity card number must not exceed 10 digits' },
       minLength: { value: 1, message: 'Identity card number at least 1 digits' },
-      placeholder: userInfo?.cmnd,
-      defaultValue: userInfo?.cmnd
+      placeholder: userInfo?.identify,
+      defaultValue: userInfo?.identify
     }
   ]
 
-  console.log(user);
   const [openAlert, setOpenAlert] = useState(true)
   const [imgSrc, setImgSrc] = useState()
 
@@ -121,10 +120,8 @@ const TabAccount = () => {
 
   if (!userInfo) return <></>
 
-  const onSuccess = ({ user
-  }) => {
-    console.log({ ...user, ...user })
-    session?.update({ ...user?.user, ...user })
+  const onSuccess = ({ user }) => {
+    session?.update({ ...session.data.user, user })
   }
 
   const onLogin = (data) => {

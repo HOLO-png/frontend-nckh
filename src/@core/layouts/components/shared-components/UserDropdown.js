@@ -114,10 +114,8 @@ const UserDropdown = () => {
         <MenuItem sx={{ p: 0 }} onClick={() => handleDropdownClose()}>
           <Box sx={styles}>
             <Link href='/account-settings' passHref>
-              <a className='a-link' style={{ textDecorationLine: 'none', color: '#333', display: 'flex' }}>
-                <AccountOutline sx={{ marginRight: 2 }} />
-                Profile
-              </a>
+              <AccountOutline sx={{ marginRight: 2 }} />
+              Profile
             </Link>
           </Box>
         </MenuItem>

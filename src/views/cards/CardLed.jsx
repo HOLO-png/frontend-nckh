@@ -35,8 +35,8 @@ const CardTemp = ({ title, description, optionRenders }) => {
             </Typography>
             <Divider sx={{ marginTop: 6.5, marginBottom: 6.75 }} />
             <Grid container spacing={4}>
-              {optionRenders?.map(option =>
-                <Grid item xs={8} sm={12}>
+              {optionRenders?.map((option, index) =>
+                <Grid item xs={8} sm={12} key={index}>
                   <StyledBox>
                     {option.render()}
                   </StyledBox>
@@ -60,8 +60,8 @@ const CardTemp = ({ title, description, optionRenders }) => {
             </Typography>
             <Divider sx={{ marginTop: 6.5, marginBottom: 6.75 }} />
             <Grid container spacing={4}>
-              {optionRenders?.map(option =>
-                <Grid item xs={8} sm={4}>
+              {optionRenders?.map((option, index) =>
+                <Grid item xs={8} sm={4} key={index}>
                   <StyledBox>
                     {option.render()}
                   </StyledBox>

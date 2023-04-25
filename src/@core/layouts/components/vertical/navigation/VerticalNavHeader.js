@@ -27,7 +27,7 @@ const HeaderTitle = styled(Typography)(({ theme }) => ({
   transition: 'opacity .25s ease-in-out, margin .25s ease-in-out'
 }))
 
-const StyledLink = styled('a')({
+const StyledLink = styled('p')({
   display: 'flex',
   alignItems: 'center',
   textDecoration: 'none'

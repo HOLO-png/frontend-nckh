@@ -5,7 +5,6 @@ import { useState } from 'react'
 import Box from '@mui/material/Box'
 import Fade from '@mui/material/Fade'
 import Paper from '@mui/material/Paper'
-import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 
@@ -46,22 +45,12 @@ const BuyNowButton = () => {
           <Paper elevation={9} sx={{ borderRadius: 1, overflow: 'hidden' }}>
             <CardContent>
               <Typography sx={{ mb: 4 }} variant='h6'>
-                Materio - React Admin Template
+                SMART HOME - React Admin Template
               </Typography>
               <Typography sx={{ mb: 4 }} variant='body2'>
-                Materio Admin is the most developer friendly & highly customizable Admin Dashboard Template based on MUI
+                SMART HOME Admin is the most developer friendly & highly customizable Admin Dashboard Template based on MUI
                 and NextJS.
               </Typography>
-              <Typography sx={{ mb: 4 }} variant='body2'>
-                Click on below buttons to explore PRO version.
-              </Typography>
-              <Button
-                component='a'
-                sx={{ mr: 4 }}
-                variant='contained'
-                href='https://demos.themeselection.com/materio-mui-react-nextjs-admin-template/landing/'>
-                Demo
-              </Button>
             </CardContent>
           </Paper>
         </Box>

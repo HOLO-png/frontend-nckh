@@ -18,20 +18,6 @@ const FooterContent = () => {
         {` by `}
         <Link href='https://themeselection.com/'>ThemeSelection</Link>
       </Typography>
-      {hidden ? null : (
-        <Box sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', '& :not(:last-child)': { mr: 4 } }}>
-          <Link href='https://github.com/themeselection/materio-mui-react-nextjs-admin-template-free/blob/main/LICENSE'>
-            MIT License
-          </Link>
-          <Link href='https://themeselection.com/'>More Themes</Link>
-          <Link href='https://github.com/themeselection/materio-mui-react-nextjs-admin-template-free/blob/main/README.md'>
-            Documentation
-          </Link>
-          <Link href='https://github.com/themeselection/materio-mui-react-nextjs-admin-template-free/issues'>
-            Support
-          </Link>
-        </Box>
-      )}
     </Box>
   )
 }

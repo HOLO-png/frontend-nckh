@@ -11,23 +11,51 @@ import LockOpenOutline from 'mdi-material-ui/LockOpenOutline'
 import PowerPlug from 'mdi-material-ui/PowerPlug'
 import TemperatureCelsius from 'mdi-material-ui/TemperatureCelsius'
 import CosineWave from 'mdi-material-ui/CosineWave'
+
+import AlphaDBox from 'mdi-material-ui/AlphaDBox'
+import Update from 'mdi-material-ui/Update'
+
 import CounterTemp from 'src/views/cards/fragment/CounterTemp'
+
 import AccountOutline from 'mdi-material-ui/AccountOutline'
+import FireCircle from 'mdi-material-ui/FireCircle'
+
+import AlphaS from 'mdi-material-ui/AlphaS'
+import FireAlert from 'mdi-material-ui/FireAlert'
+
 import Thermometer from 'mdi-material-ui/Thermometer'
 import { lefOff, lefOn, useLightStore } from 'src/@core/store/light-store'
 import { useNotificationStore } from 'src/@core/store/notification-store'
-import { LIGHT_ENDPOINT } from 'src/@core/constant/APIEndpoint'
+import { DEVICE_ENDPOINT, LIGHT_ENDPOINT } from 'src/@core/constant/APIEndpoint'
 import { useSocketStore } from 'src/@core/store/socket-store'
 import { useSession } from 'next-auth/react'
+import CardSeft from 'src/views/cards/CardSeft'
+import CardOnFire from 'src/views/cards/CardOnFire'
+import { useDeviceStore } from 'src/@core/store'
+import { useEffect } from 'react'
+
 
 const CardBasic = () => {
   const setStatusLightApi = useLightStore((s) => s.setStatusLightApi)
+  const getDeviceStatus = useDeviceStore((s) => s.getDeviceStatus)
+  const device = useDeviceStore((s) => s.device)
+
+
+  const isTurnOn = useLightStore((s) => s.isTurnOn)
+
   const createNotify = useNotificationStore((s) => s.createNotify)
   const session = useSession()
   const { data: user } = session
   const userInfo = user?.user?.user
   const light = useLightStore((s) => s.light)
   const socket = useSocketStore((s) => s.socket)
+
+  useEffect(() => {
+    if (socket && user?.user) {
+      getDeviceStatus(DEVICE_ENDPOINT, user?.user, socket)
+    }
+  }, [socket, user?.user])
+
 
   const temperatureOptions = [
     {
@@ -81,7 +109,7 @@ const CardBasic = () => {
     {
       render: () => (
         <>
-          <Box sx={{ mb: 6.75, display: 'flex', alignItems: 'center' }}>
+          <Box sx={{ mb: 6.75, display: 'flex', alignItems: 'center', marginBottom: '15px' }}>
             <LockOpenOutline sx={{ color: 'primary.main', marginRight: 2.75 }} fontSize='small' />
             <Typography variant='body2'>Sensor</Typography>
             <Switch defaultChecked size='small' />
@@ -123,17 +151,46 @@ const CardBasic = () => {
     },
   ]
 
+  const safeStateOptions = [
+    {
+      render: () => (
+        <>
+          <Box sx={{ mb: 6.75, display: 'flex', alignItems: 'center' }}>
+            <LockOpenOutline sx={{ color: 'primary.main', marginRight: 2.75 }} fontSize='small' />
+            <Typography variant='body2'>Sensor 1</Typography>
+
+          </Box>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <AlphaS sx={{ color: 'primary.main', marginRight: 2.75 }} fontSize='small' />
+            <Typography variant='body2'>{device?.AntiFire.Status === 'yes' ? 'Active status' : ''}</Typography>
+          </Box>
+        </>
+      ),
+    },
+    {
+      render: () => (
+        <>
+          <Box >
+            <AlphaDBox sx={{ color: 'primary.main', marginRight: 2.75 }} fontSize='small' />
+            <Typography variant='caption'>Number of intrucsion detections</Typography>
+          </Box>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Update sx={{ color: 'primary.main', marginRight: 2.75 }} fontSize='small' />
+            <Typography variant='body2'>{device?.AntiTheft.Times} times/Day</Typography>
+          </Box>
+        </>
+      )
+    },
+  ]
+
   const onNotifySuccess = (isNotify) => {
     if (userInfo) {
       const params = {
-        user: userInfo?._id,
-        url: '/control-panel/room-01',
-        boxId: 'boxLed',
+        userId: userInfo?._id,
         title: 'Light action',
         body: `Light status is ${isNotify === 1 ? 'on' : 'off'}`,
-        image: lefOn,
-        status: isNotify,
-        isRead: false
+        image: !isTurnOn ? lefOn : lefOff,
+        status: isNotify.toString(),
       }
       const data = { params, auth: user?.user, socket }
       createNotify(data)
@@ -172,15 +229,54 @@ const CardBasic = () => {
     }
   ]
 
+  const fireStateOptions = [
+    {
+      render: () => (
+        <>
+          <Box sx={{ mb: 6.75, display: 'flex', alignItems: 'center' }}>
+            <LockOpenOutline sx={{ color: 'primary.main', marginRight: 2.75 }} fontSize='small' />
+            <Typography variant='body2'>Sensor 1</Typography>
+
+          </Box>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <AlphaS sx={{ color: 'primary.main', marginRight: 2.75 }} fontSize='small' />
+            <Typography variant='body2'>{device?.AntiFire.Status === 'yes' ? 'Active status' : ''}</Typography>
+          </Box>
+        </>
+      ),
+    },
+    {
+      render: () => (
+        <>
+          <Box sx={{ mb: 6.75, display: 'flex', alignItems: 'center' }}>
+            <FireAlert sx={{ color: 'primary.main', marginRight: 2.75 }} fontSize='small' />
+            <Typography variant='caption'>flammable gas concentration</Typography>
+          </Box>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <FireCircle sx={{ color: 'primary.main', marginRight: 2.75 }} fontSize='small' />
+            <Typography variant='body2'>{device?.AntiFire.PPM} PPM</Typography>
+          </Box>
+        </>
+      )
+    },
+  ]
+
+  if (!device) {
+    return <></>
+  }
+
   return (
     <Grid container spacing={6}>
       <Grid item xs={12} sx={{ paddingBottom: 4 }}>
         <Typography variant='h5'>Control Device</Typography>
       </Grid>
-      <CardTemp title="Temperature" description="Temperature is a physical property of matter, roughly understood as a scale of 'hot' and 'cold'. It is the
+      <CardTemp data={device?.Temperature.Data
+      } title="Temperature" description="Temperature is a physical property of matter, roughly understood as a scale of 'hot' and 'cold'. It is the
               manifestation of thermal energy, present in all matter" optionRenders={temperatureOptions} />
-      <CardTemp title="Humidity" description="Air humidity is the amount of water vapor present in the air, water in the form of water vapor and difficult to perceive by the human eye. Humidity directly affects the living environment of humans, our daily activities and production." optionRenders={humidityOptions} />
+      <CardTemp data={device?.Humidity.Data} title="Humidity" description="Air humidity is the amount of water vapor present in the air, water in the form of water vapor and difficult to perceive by the human eye. Humidity directly affects the living environment of humans, our daily activities and production." optionRenders={humidityOptions} />
       <CardLed title="Led" description="you can control the lights in your room with just 1 click" optionRenders={ledOptions} />
+      <CardSeft title="Anti Theft" description="The safe state will notify you of the risks of unauthorized entry and possible danger to you and your loved ones." optionRenders={safeStateOptions} />
+      <CardOnFire title="Anti Fire" description="When there is a fire incident, the fire alarm system is activated and reports the exact location of the incident on the map based on that, the supervisor or the fire protection agency has a plan to handle it promptly and quickly." optionRenders={fireStateOptions} />
     </Grid>
   )
 }

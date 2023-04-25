@@ -1,6 +1,5 @@
 import axios from 'axios'
-import { default as queryString } from 'query-string'
-import { useNotificationStore } from '../store'
+import { API_URL } from 'src/@core/constant/APIEndpoint'
 
 export const HttpMethod = {
   GET: 'GET',
@@ -10,7 +9,7 @@ export const HttpMethod = {
 }
 
 axios.interceptors.request.use(function (config) {
-  config.baseURL = 'http://localhost:8080'
+  config.baseURL = API_URL
 
   return config
 })
@@ -32,12 +31,6 @@ export const handleError = (err, dispatchNotification) => {
   } else {
     dispatchNotification && dispatchNotification('error', 'API request failed')
   }
-}
-
-export const onUpdateQuery = (url = '', query = {}) => {
-  const currentQuery = queryString.parse(location.search)
-
-  return url + '?' + queryString.stringify(Object.assign(currentQuery, query))
 }
 
 export const invokeRequest = async (options) => {

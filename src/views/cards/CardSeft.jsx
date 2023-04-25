@@ -2,20 +2,11 @@
 import Grid from '@mui/material/Grid'
 // ** Icons Imports
 import CardMembership from './CardMembership'
-import ReactApexcharts from 'src/@core/components/react-apexcharts'
-import { useTheme } from '@mui/material/styles'
 import { styled } from '@mui/material/styles'
 import Divider from '@mui/material/Divider'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
-import Switch from '@mui/material/Switch'
 
-import TemperatureCelsius from 'mdi-material-ui/TemperatureCelsius'
-import PowerPlug from 'mdi-material-ui/PowerPlug'
-import AccountOutline from 'mdi-material-ui/AccountOutline'
-import CosineWave from 'mdi-material-ui/CosineWave'
-import LockOpenOutline from 'mdi-material-ui/LockOpenOutline'
-import CounterTemp from './fragment/CounterTemp'
 
 // ** Icons Imports
 
@@ -25,69 +16,14 @@ const StyledBox = styled(Box)(({ theme }) => ({
   }
 }))
 
-const CardTemp = ({ title, description, optionRenders, data }) => {
-  const theme = useTheme()
-
-  var options = {
-    chart: {
-      height: 280,
-      type: 'radialBar'
-    },
-    series: [+data],
-    colors: [
-      theme.palette.background.default,
-      theme.palette.background.default,
-      theme.palette.background.default,
-      theme.palette.primary.main,
-      theme.palette.background.default,
-      theme.palette.background.default
-    ],
-    plotOptions: {
-      radialBar: {
-        hollow: {
-          margin: 0,
-          size: '70%',
-          background: '#ffd26a'
-        },
-        track: {
-          dropShadow: {
-            enabled: true,
-            top: 2,
-            left: 0,
-            blur: 4,
-            opacity: 0.15
-          }
-        },
-        dataLabels: {
-          name: {
-            offsetY: -10,
-            color: '#fff',
-            fontSize: '13px'
-          },
-          value: {
-            color: '#fff',
-            fontSize: '30px',
-            show: true
-          }
-        }
-      }
-    },
-    fill: {
-      type: 'gradient',
-      gradient: {
-        shade: 'dark',
-        type: 'vertical',
-        gradientToColors: ['#87D4F9'],
-        stops: [0, 100]
-      }
-    },
-    stroke: {
-      lineCap: 'round'
-    }
-  }
-
+const image = 'https://play-lh.googleusercontent.com/brOM-Tb1T8NIdRREEHlDNfmyMlm_aOoFRd0smxVEd4fuEq8QuT_yLcfh5wFFpmuGDw'
+const CardSeft = ({ title, description, optionRenders }) => {
   const chart = () => {
-    return <ReactApexcharts type='radialBar' height={205} options={options} series={[+data]} />
+    return (
+      <section>
+        <img src={image} id='bulb' width={140} alt='' />
+      </section>
+    )
   }
 
   const tabs = [
@@ -150,4 +86,4 @@ const CardTemp = ({ title, description, optionRenders, data }) => {
   )
 }
 
-export default CardTemp
+export default CardSeft

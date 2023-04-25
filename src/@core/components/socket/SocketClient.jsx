@@ -1,33 +1,16 @@
-import { useEffect, useRef } from 'react'
-// import { useSelector, useDispatch } from 'react-redux'
-// import { POST_TYPES } from './redux/actions/postAction'
-// import { GLOBALTYPES } from './redux/actions/globalTypes'
-// import { NOTIFY_TYPES } from './redux/actions/notifyAction'
-// import { MESS_TYPES } from './redux/actions/messageAction'
+import { useEffect } from 'react'
 
 import { useSession } from 'next-auth/react'
 import { useSocketStore } from 'src/@core/store/socket-store'
 import { useLightStore } from 'src/@core/store/light-store'
 import { useNotificationStore } from 'src/@core/store'
 
-const spawnNotification = (body, icon, url, title) => {
-  let options = {
-    body, icon
-  }
-  let n = new Notification(title, options)
-
-  n.onclick = e => {
-    e.preventDefault()
-    window.open(url, '_blank')
-  }
-}
-
 const SocketClient = () => {
   const socket = useSocketStore((s) => s.socket)
-  const createNotify = useNotificationStore((s) => s.createNotify)
   const dispatchNotification = useNotificationStore((s) => s.dispatchNotification)
 
-  const removeNotify = useNotificationStore((s) => s.removeNotify)
+  // const removeNotify = useNotificationStore((s) => s.removeNotify)
+  const updateNotifies = useNotificationStore((s) => s.updateNotifies)
 
   const setIsTurnOn = useLightStore((s) => s.setIsTurnOn)
 
@@ -36,10 +19,9 @@ const SocketClient = () => {
 
   useEffect(() => {
     if (socket && user) {
-      socket?.emit('joinUser', user?.user)
+      socket?.emit('joinUser', user?.user.user)
     }
   }, [socket, user])
-
 
   useEffect(() => {
     if (socket) {
@@ -55,27 +37,15 @@ const SocketClient = () => {
 
   useEffect(() => {
     if (socket) {
-      socket.on('createNotifyToClient', msg => {
-        dispatchNotification('info', msg.text, msg.content)
-        spawnNotification(
-          msg.user.username + ' ' + msg.text,
-          msg.user.avatar,
-          msg.url,
-          'V-NETWORK'
-        )
+      socket.on('createNotifyToClient', (msg) => {
+        console.log(msg);
+        dispatchNotification('info', msg.title, msg.body)
+        updateNotifies(msg)
       })
 
-      return () => socket.off('createNotifyToClient')
-    }
-  }, [socket])
-
-  useEffect(() => {
-    if (socket) {
-      socket.on('removeNotifyToClient', msg => {
-        removeNotify({ params: msg, auth: user?.user, socket })
-      })
-
-      return () => socket.off('removeNotifyToClient')
+      return () => {
+        socket.off('createNotifyToClient')
+      }
     }
   }, [socket])
 

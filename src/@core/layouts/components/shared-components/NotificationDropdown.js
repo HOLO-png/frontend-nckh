@@ -19,6 +19,7 @@ import BellOutline from 'mdi-material-ui/BellOutline'
 // ** Third Party Components
 import PerfectScrollbarComponent from 'react-perfect-scrollbar'
 import Link from 'next/link'
+import { DateTime } from 'luxon'
 
 // ** Styled Menu component
 const Menu = styled(MuiMenu)(({ theme }) => ({
@@ -131,20 +132,20 @@ const NotificationDropdown = () => {
         </MenuItem>
         <ScrollWrapper>
           {notifies?.map((notify, idx) => {
+            const date = DateTime.fromISO(notify.createdAt);
+
             return (
               <MenuItem onClick={handleDropdownClose} key={idx}>
-                <Link href={notify.url} passHref>
-                  <Box sx={{ width: '100%', display: 'flex', alignItems: 'center' }}>
-                    <Avatar alt='Flora' src={notify.userId.avatar} />
-                    <Box sx={{ mx: 4, flex: '1 1', display: 'flex', overflow: 'hidden', flexDirection: 'column' }}>
-                      <MenuItemTitle>{notify.title}🎉</MenuItemTitle>
-                      <MenuItemSubtitle variant='body2'>{notify.body}</MenuItemSubtitle>
-                    </Box>
-                    <Typography variant='caption' sx={{ color: 'text.disabled' }}>
-                      Today
-                    </Typography>
+                <Box sx={{ width: '100%', display: 'flex', alignItems: 'center' }}>
+                  <Avatar alt='Flora' src={notify.image} style={{ objectFit: 'contain' }} />
+                  <Box sx={{ mx: 4, flex: '1 1', display: 'flex', overflow: 'hidden', flexDirection: 'column' }}>
+                    <MenuItemTitle>{notify.title}🎉</MenuItemTitle>
+                    <MenuItemSubtitle variant='body2'>{notify.body}</MenuItemSubtitle>
                   </Box>
-                </Link>
+                  <Typography variant='caption' sx={{ color: 'text.disabled' }}>
+                    {date.toRelative()}
+                  </Typography>
+                </Box>
               </MenuItem>
             )
           })}

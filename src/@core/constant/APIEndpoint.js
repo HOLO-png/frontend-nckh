@@ -1,3 +1,5 @@
+export const API_URL = 'https://nodejs-api-7u44.onrender.com'
+
 export const LOGIN_ENDPOINT = '/api/login'
 
 export const REGISTER_ENDPOINT = '/api/register'
@@ -15,6 +17,9 @@ export const NOTIFY_ENDPOINT = '/api/notify'
 export const NOTIFIES_ENDPOINT = '/api/notifies'
 
 export const USER_ENDPOINT = '/api/user'
+
+export const DEVICE_ENDPOINT = '/api/drive'
+
 
 
 

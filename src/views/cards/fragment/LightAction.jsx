@@ -1,11 +1,9 @@
 
 import { useEffect } from 'react'
-import { LIGHT_ENDPOINT } from 'src/@core/constant/APIEndpoint'
 
 import { useLightStore } from 'src/@core/store/light-store'
 import { lefOff } from 'src/@core/store/light-store'
 
-import { useSocketStore } from 'src/@core/store/socket-store'
 
 function LightAction() {
   const light = useLightStore((s) => s.light)
@@ -18,7 +16,7 @@ function LightAction() {
 
   return (
     <section>
-      <img defaultValue={lefOff} src={light} id='bulb' width={100} />
+      <img defaultValue={lefOff} src={light} id='bulb' width={100} alt='' />
     </section>
   )
 }

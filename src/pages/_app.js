@@ -14,6 +14,7 @@ import { useSession } from 'next-auth/react'
 
 // ** Component Imports
 import ThemeComponent from 'src/@core/theme/ThemeComponent'
+
 const UserLayout = dynamic(() => import('src/layouts/UserLayout'), { ssr: false })
 // ** Contexts
 import { SettingsConsumer, SettingsProvider } from 'src/@core/context/settingsContext'
@@ -37,6 +38,7 @@ import { useNotificationStore } from 'src/@core/store/notification-store'
 
 import SocketClient from 'src/@core/components/socket/SocketClient'
 import dynamic from 'next/dynamic'
+import { API_URL } from 'src/@core/constant/APIEndpoint'
 
 const clientSideEmotionCache = createEmotionCache()
 
@@ -67,11 +69,12 @@ const App = (props) => {
   const getLayout = Component.getLayout ?? ((page) => <UserLayout>{page}</UserLayout>)
 
   useEffect(() => {
-    const socket = io('http://localhost:8080', {
+    const socket = io(API_URL, {
       withCredentials: true,
       transports: ['websocket']
     })
     setSocketApi(socket)
+
     return () => {
       socket.close()
     }

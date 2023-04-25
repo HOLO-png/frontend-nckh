@@ -1,6 +1,6 @@
 import create from 'zustand'
 import { ApiCore } from '../ApiCore'
-import { LIGHT_ENDPOINT, DERIVE_ENDPOINT } from '../constant/APIEndpoint'
+import { DERIVE_ENDPOINT } from '../constant/APIEndpoint'
 
 export const lefOff = 'https://i.postimg.cc/KjK1wL3c/bulb-off.png'
 export const lefOn = 'https://i.postimg.cc/6QyTynzr/bulb-on.png'
