@@ -3,7 +3,6 @@ import { NextResponse } from 'next/server'
 
 export default withAuth(
   async (req) => {
-    console.log(req.url);
     if (!req.nextauth.token) {
       return NextResponse.rewrite(new URL(req.url + '/auth/login', req.url))
     }

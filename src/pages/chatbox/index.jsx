@@ -12,11 +12,49 @@ import Avatar from '@mui/material/Avatar'
 import Fab from '@mui/material/Fab'
 import SendCircleOutline from 'mdi-material-ui/SendCircleOutline'
 import { useSession } from 'next-auth/react'
+import { useRef } from 'react'
+import { useSocketStore } from 'src/@core/store/socket-store'
+import { useChatBoxStore } from 'src/@core/store/chatbox-store'
+import { DateTime } from 'luxon'
+import { useEffect } from 'react'
 
 const Chat = () => {
+  const socket = useSocketStore(s => s.socket)
+  const messenges = useChatBoxStore(s => s.messenges)
+  const dispatchMessenge = useChatBoxStore(s => s.dispatchMessenge)
+
   const session = useSession()
+  const inputField = useRef(null)
+  const containerChat = useRef(null)
+
   const { data: user } = session
   const userInfo = user?.user.user
+
+  const handleDispatchMessenge = () => {
+    const inputValue = inputField.current.querySelector('input').value
+
+    if (inputValue && socket) {
+      const mess = {
+        message: inputValue,
+        userId: userInfo._id,
+        bot: false,
+        createdAt: new Date().toISOString()
+      }
+
+      console.log(mess);
+      socket.emit('sendChat', { message: inputValue, userId: userInfo._id })
+      dispatchMessenge(mess)
+      inputField.current.querySelector('input').value = ''
+    }
+  }
+
+  useEffect(() => {
+    if (containerChat.current) {
+
+    }
+
+  }, [])
+
 
   return (
     <div>
@@ -32,9 +70,9 @@ const Chat = () => {
           <List>
             <ListItem button key='RemySharp'>
               <ListItemIcon>
-                <Avatar alt='Remy Sharp' src={userInfo.avatar} />
+                <Avatar alt='Remy Sharp' src={userInfo?.avatar} />
               </ListItemIcon>
-              <ListItemText primary={userInfo.fullname}></ListItemText>
+              <ListItemText primary={userInfo?.fullname}></ListItemText>
             </ListItem>
           </List>
           <Divider />
@@ -42,46 +80,34 @@ const Chat = () => {
         <Grid item xs={9}>
           <List
             style={{
-              height: '500px'
-            }}>
-            <ListItem key='1'>
-              <Grid container>
-                <Grid item xs={12}>
-                  <ListItemText align='right' primary="Hey man, What's up ?"></ListItemText>
+              height: '500px',
+              overflow: 'auto'
+            }}
+            ref={containerChat}
+          >
+            {messenges.map((mess, idx) => {
+              const isBot = mess.bot ? 'left' : 'right';
+              const date = DateTime.fromISO(mess.createdAt);
+
+              return <ListItem key={idx}>
+                <Grid container>
+                  <Grid item xs={12}>
+                    <ListItemText align={isBot} primary={mess.message}></ListItemText>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <ListItemText align={isBot} secondary={date.toRelative()}></ListItemText>
+                  </Grid>
                 </Grid>
-                <Grid item xs={12}>
-                  <ListItemText align='right' secondary='09:30'></ListItemText>
-                </Grid>
-              </Grid>
-            </ListItem>
-            <ListItem key='2'>
-              <Grid container>
-                <Grid item xs={12}>
-                  <ListItemText align='left' primary='Hey, Iam Good! What about you ?'></ListItemText>
-                </Grid>
-                <Grid item xs={12}>
-                  <ListItemText align='left' secondary='09:31'></ListItemText>
-                </Grid>
-              </Grid>
-            </ListItem>
-            <ListItem key='3'>
-              <Grid container>
-                <Grid item xs={12}>
-                  <ListItemText align='right' primary="Cool. i am good, let's catch up!"></ListItemText>
-                </Grid>
-                <Grid item xs={12}>
-                  <ListItemText align='right' secondary='10:30'></ListItemText>
-                </Grid>
-              </Grid>
-            </ListItem>
+              </ListItem>
+            })}
           </List>
           <Divider />
           <Grid container style={{ padding: '20px' }}>
             <Grid item xs={11}>
-              <TextField id='outlined-basic-email' label='Type Something' fullWidth />
+              <TextField id='outlined-basic-email' label='Type Something' fullWidth ref={inputField} />
             </Grid>
             <Grid xs={1} align='right'>
-              <Fab color='primary' aria-label='add'>
+              <Fab color='primary' aria-label='add' onClick={handleDispatchMessenge}>
                 <SendCircleOutline />
               </Fab>
             </Grid>

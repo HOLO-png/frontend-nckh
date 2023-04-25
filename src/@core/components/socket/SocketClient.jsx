@@ -4,12 +4,13 @@ import { useSession } from 'next-auth/react'
 import { useSocketStore } from 'src/@core/store/socket-store'
 import { useLightStore } from 'src/@core/store/light-store'
 import { useNotificationStore } from 'src/@core/store'
+import { useChatBoxStore } from 'src/@core/store/chatbox-store'
 
 const SocketClient = () => {
   const socket = useSocketStore((s) => s.socket)
   const dispatchNotification = useNotificationStore((s) => s.dispatchNotification)
+  const dispatchMessenge = useChatBoxStore((s) => s.dispatchMessenge)
 
-  // const removeNotify = useNotificationStore((s) => s.removeNotify)
   const updateNotifies = useNotificationStore((s) => s.updateNotifies)
 
   const setIsTurnOn = useLightStore((s) => s.setIsTurnOn)
@@ -45,6 +46,19 @@ const SocketClient = () => {
 
       return () => {
         socket.off('createNotifyToClient')
+      }
+    }
+  }, [socket])
+
+  useEffect(() => {
+    if (socket) {
+      socket.on('sendChat', (data) => {
+        console.log(data)
+        dispatchMessenge(data)
+      })
+
+      return () => {
+        socket.off('sendChat')
       }
     }
   }, [socket])

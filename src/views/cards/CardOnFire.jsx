@@ -17,7 +17,7 @@ const StyledBox = styled(Box)(({ theme }) => ({
 }))
 
 const image = 'https://static.vecteezy.com/system/resources/thumbnails/018/888/343/small/yellow-fire-icon-png.png'
-const CardSeft = ({ title, description, optionRenders }) => {
+const CardSeft = ({ title, description, optionRenders, data }) => {
   const chart = () => {
     return (
       <section>
