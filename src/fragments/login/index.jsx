@@ -65,7 +65,7 @@ const inputs = [
 ]
 
 const LoginPage = () => {
-  const { isSubmitting, loginApi } = useAuthStore()
+  const { loginApi } = useAuthStore()
   const { dispatchNotification } = useNotificationStore()
   const { dispatchLoading } = useLoadingStore()
 
@@ -82,14 +82,13 @@ const LoginPage = () => {
       password,
       redirect: false
     })
-    console.log(res);
     router.push('/')
+    dispatchLoading(false)
   }
 
   const onLogin = (data) => {
     dispatchLoading(true)
     loginApi(LOGIN_ENDPOINT, data, dispatchNotification, onSuccess)
-    dispatchLoading(false)
 
   }
 
