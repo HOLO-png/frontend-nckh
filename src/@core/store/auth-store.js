@@ -8,7 +8,7 @@ export const useAuthStore = create((set) => {
     auth: null,
     isError: false,
     isSubmitting: false,
-    loginApi: async (endpoint, params, onNotify, onSuccess) => {
+    loginApi: async (endpoint, params, onNotify, onSuccess, dispatchLoading) => {
       set({ isSubmitting: true })
 
       try {
@@ -21,6 +21,7 @@ export const useAuthStore = create((set) => {
         console.log(error)
         onNotify(NotificationType.ERROR, error.response?.data.msg)
         set({ isError: true, isSubmitting: false })
+        dispatchLoading(false)
       }
     },
     registerApi: async (endpoint, params, onNotify, onSuccess) => {

@@ -14,8 +14,6 @@ import { signIn } from 'next-auth/react'
 // ** Configs
 import themeConfig from 'src/configs/themeConfig'
 
-// ** Layout Import
-
 // ** Demo Imports
 import FooterIllustrationsV1 from 'src/views/pages/auth/FooterIllustration'
 import { FormProvider } from 'src/@core/components/form-provider'
@@ -23,7 +21,6 @@ import { useRef } from 'react'
 import { useAuthStore, useNotificationStore } from 'src/@core/store'
 import { LOGIN_ENDPOINT } from 'src/@core/constant/APIEndpoint'
 import { useLoadingStore } from 'src/@core/store/loading-store'
-import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 
 // ** Styled Components
@@ -88,7 +85,7 @@ const LoginPage = () => {
 
   const onLogin = (data) => {
     dispatchLoading(true)
-    loginApi(LOGIN_ENDPOINT, data, dispatchNotification, onSuccess)
+    loginApi(LOGIN_ENDPOINT, data, dispatchNotification, onSuccess, dispatchLoading)
 
   }
 

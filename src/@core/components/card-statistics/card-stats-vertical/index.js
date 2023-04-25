@@ -9,9 +9,11 @@ import CardContent from '@mui/material/CardContent'
 // ** Icons Imports
 import EyeCircle from 'mdi-material-ui/EyeCircle'
 import { useRouter } from 'next/router'
+import { useLoadingStore } from 'src/@core/store/loading-store'
 
 const CardStatsVertical = (props) => {
   const router = useRouter()
+  const { dispatchLoading } = useLoadingStore()
   // ** Props
   const { title, subtitle, color, icon, stats, trend, trendNumber, isAction = true } = props
 
@@ -28,7 +30,10 @@ const CardStatsVertical = (props) => {
               aria-label='settings'
               className='card-more-options'
               sx={{ color: 'text.secondary' }}
-              onClick={() => router.push('/control-panel/room-01')}>
+              onClick={() => {
+                dispatchLoading(true)
+                router.push('/control-panel/room-01')
+              }}>
               <EyeCircle />
             </IconButton>
           </Box>

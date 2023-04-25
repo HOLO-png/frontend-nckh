@@ -33,13 +33,14 @@ import CardSeft from 'src/views/cards/CardSeft'
 import CardOnFire from 'src/views/cards/CardOnFire'
 import { useDeviceStore } from 'src/@core/store'
 import { useEffect } from 'react'
+import { useLoadingStore } from 'src/@core/store/loading-store'
 
 
 const CardBasic = () => {
   const setStatusLightApi = useLightStore((s) => s.setStatusLightApi)
   const getDeviceStatus = useDeviceStore((s) => s.getDeviceStatus)
   const device = useDeviceStore((s) => s.device)
-
+  const { dispatchLoading } = useLoadingStore()
 
   const isTurnOn = useLightStore((s) => s.isTurnOn)
 
@@ -54,6 +55,7 @@ const CardBasic = () => {
     if (socket && user?.user) {
       getDeviceStatus(DEVICE_ENDPOINT, user?.user, socket)
     }
+    dispatchLoading(false)
   }, [socket, user?.user])
 
 
