@@ -1,6 +1,6 @@
 import { forwardRef, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { FormTextField, FormTextInput } from './FormControl'
+import { FormTextInput } from './FormControl'
 
 const FormWrapper = (props, ref) => {
   const { inputs, mode = 'onSubmit' } = props
@@ -13,8 +13,7 @@ const FormWrapper = (props, ref) => {
     if (ref) {
       ref.current = form
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [form, ref])
 
   return (
     <form>

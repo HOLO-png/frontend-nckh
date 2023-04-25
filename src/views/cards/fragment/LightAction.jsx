@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 
 import { useEffect } from 'react'
 
@@ -13,7 +12,7 @@ function LightAction() {
 
   useEffect(() => {
     getLightStatus()
-  }, [isTurnOn])
+  }, [getLightStatus, isTurnOn])
 
   return (
     <section>

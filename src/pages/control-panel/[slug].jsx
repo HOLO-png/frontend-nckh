@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 // ** MUI Imports
 import { Box } from '@mui/material'
 import Grid from '@mui/material/Grid'
@@ -57,7 +56,7 @@ const CardBasic = () => {
       getDeviceStatus(DEVICE_ENDPOINT, user?.user, socket)
     }
     dispatchLoading(false)
-  }, [socket, user?.user])
+  }, [dispatchLoading, getDeviceStatus, socket, user?.user])
 
 
   const temperatureOptions = [

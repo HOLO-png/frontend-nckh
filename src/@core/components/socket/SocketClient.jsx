@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from 'react'
 
 import { useSession } from 'next-auth/react'
@@ -35,7 +34,7 @@ const SocketClient = () => {
         socket.off('testLight')
       }
     }
-  }, [socket])
+  }, [setIsTurnOn, socket])
 
   useEffect(() => {
     if (socket) {
@@ -49,7 +48,7 @@ const SocketClient = () => {
         socket.off('createNotifyToClient')
       }
     }
-  }, [socket])
+  }, [dispatchNotification, socket, updateNotifies])
 
   useEffect(() => {
     if (socket) {
@@ -62,7 +61,7 @@ const SocketClient = () => {
         socket.off('sendChat')
       }
     }
-  }, [socket])
+  }, [dispatchMessenge, socket])
 
   return (
     <>

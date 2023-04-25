@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 // ** Next Imports
 import Link from 'next/link'
 
@@ -62,7 +61,7 @@ const ForgotPasswordPage = () => {
 
   useEffect(() => {
     dispatchLoading(isSubmitting)
-  }, [isSubmitting])
+  }, [dispatchLoading, isSubmitting])
 
   const onLogin = (data) => {
     forgotPasswordApi(FORGOT_PASS_ENDPOINT, data, dispatchNotification)

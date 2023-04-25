@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 // ** MUI Imports
 import useMediaQuery from '@mui/material/useMediaQuery'
 
@@ -33,7 +32,7 @@ const UserLayout = ({ children }) => {
     if (user?.user) {
       getNotifies({ auth: user?.user })
     }
-  }, [user?.user])
+  }, [getNotifies, user?.user])
 
   return (
     <VerticalLayout

@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 // ** React Imports
 import { Fragment } from 'react'
 
@@ -134,7 +133,7 @@ const RegisterPage = () => {
 
   useEffect(() => {
     dispatchLoading(isSubmitting)
-  }, [isSubmitting])
+  }, [dispatchLoading, isSubmitting])
 
   const onLogin = (data) => {
     registerApi(REGISTER_ENDPOINT, data, dispatchNotification, handleOnSuccess)

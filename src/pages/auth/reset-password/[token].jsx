@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 // ** Next Imports
 import Link from 'next/link'
 
@@ -82,7 +81,7 @@ const ResetPasswordPage = () => {
 
   useEffect(() => {
     dispatchLoading(isSubmitting)
-  }, [isSubmitting])
+  }, [dispatchLoading, isSubmitting])
 
   const onLogin = (data) => {
     resetPasswordApi(RESET_PASS_ENDPOINT, data, dispatchNotification, handleOnSuccess, router.query.token)

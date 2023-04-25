@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 // ** Next Imports
 import Head from 'next/head'
 import { Router } from 'next/router'
@@ -79,7 +78,7 @@ const App = (props) => {
     return () => {
       socket.close()
     }
-  }, [])
+  }, [setSocketApi])
 
   return (
     <SessionProvider session={pageProps.session}>
