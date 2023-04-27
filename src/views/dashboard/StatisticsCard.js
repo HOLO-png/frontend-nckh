@@ -20,22 +20,25 @@ const TrophyImg = styled('img')({
   position: 'absolute'
 })
 
-const salesData = [
-  {
-    stats: '27*C',
-    title: 'Temperature',
-    color: 'primary',
-    icon: <TemperatureCelsius sx={{ fontSize: '1.75rem' }} />
-  },
-  {
-    stats: '83%',
-    title: 'Humidity',
-    color: 'success',
-    icon: <WaterCheckOutline sx={{ fontSize: '1.75rem' }} />
-  }
-]
 
-const renderStats = () => {
+
+const renderStats = (device) => {
+
+  const salesData = [
+    {
+      stats: `${device?.Temperature?.Data ?? ''} °C`,
+      title: 'Temperature',
+      color: 'primary',
+      icon: <TemperatureCelsius sx={{ fontSize: '1.75rem' }} />
+    },
+    {
+      stats: `${device?.Humidity?.Data ?? ''} %`,
+      title: 'Humidity',
+      color: 'success',
+      icon: <WaterCheckOutline sx={{ fontSize: '1.75rem' }} />
+    }
+  ]
+
   return salesData.map((item, index) => (
     <Grid item xs={12} sm={3} key={index}>
       <Box key={index} sx={{ display: 'flex', alignItems: 'center' }}>
@@ -60,7 +63,9 @@ const renderStats = () => {
   ))
 }
 
-const StatisticsCard = () => {
+const StatisticsCard = ({ device }) => {
+
+
   return (
     <Card style={{ position: 'relative' }}>
       <CardHeader
@@ -88,7 +93,7 @@ const StatisticsCard = () => {
       />
       <CardContent sx={{ pt: (theme) => `${theme.spacing(3)} !important` }}>
         <Grid container spacing={[5, 0]}>
-          {renderStats()}
+          {renderStats(device)}
         </Grid>
       </CardContent>
       <TrophyImg alt='trophy' src='/images/misc/1779940.png' />

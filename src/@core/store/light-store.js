@@ -9,7 +9,7 @@ export const useLightStore = create((set, get) => {
   const handleFetchApi = async () => {
     try {
       const response = await ApiCore.get(DERIVE_ENDPOINT)
-      const led = response.data.Led.Status
+      const led = response.data.Led?.Status
       set({ isTurnOn: led })
     } catch (error) {
       console.log(error)

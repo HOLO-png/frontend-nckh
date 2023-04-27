@@ -34,7 +34,6 @@ import { useEffect } from 'react'
 import { SessionProvider } from 'next-auth/react'
 import { io } from 'socket.io-client'
 import { useSocketStore } from 'src/@core/store/socket-store'
-import { useNotificationStore } from 'src/@core/store/notification-store'
 
 import SocketClient from 'src/@core/components/socket/SocketClient'
 import dynamic from 'next/dynamic'

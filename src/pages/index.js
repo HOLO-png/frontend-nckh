@@ -17,8 +17,30 @@ import Trophy from 'src/views/dashboard/Trophy'
 import TotalEarning from 'src/views/dashboard/TotalEarning'
 import StatisticsCard from 'src/views/dashboard/StatisticsCard'
 import WeeklyOverview from 'src/views/dashboard/WeeklyOverview'
+import { useLoadingStore } from 'src/@core/store/loading-store'
+import { useDeviceStore } from 'src/@core/store'
+import { useSession } from 'next-auth/react'
+import { useSocketStore } from 'src/@core/store/socket-store'
+import { useEffect } from 'react'
+import { DEVICE_ENDPOINT } from 'src/@core/constant/APIEndpoint'
 
 const Dashboard = () => {
+
+  const getDeviceStatus = useDeviceStore((s) => s.getDeviceStatus)
+  const device = useDeviceStore((s) => s.device)
+  const { dispatchLoading } = useLoadingStore()
+  const session = useSession()
+  const { data: user } = session
+  const socket = useSocketStore((s) => s.socket)
+
+
+  useEffect(() => {
+    if (socket && user?.user) {
+      getDeviceStatus(DEVICE_ENDPOINT, user?.user, socket)
+    }
+    dispatchLoading(false)
+  }, [dispatchLoading, getDeviceStatus, socket, user?.user])
+
   return (
     <ApexChartWrapper>
       <Grid container spacing={6}>
@@ -26,7 +48,7 @@ const Dashboard = () => {
           <Trophy />
         </Grid>
         <Grid item xs={12} md={8}>
-          <StatisticsCard />
+          <StatisticsCard device={device} />
         </Grid>
         <Grid item xs={12} md={6} lg={4}>
           <WeeklyOverview />
@@ -38,31 +60,31 @@ const Dashboard = () => {
           <Grid container spacing={6}>
             <Grid item xs={6}>
               <CardStatisticsVerticalComponent
-                stats='Humi: 62.3%'
+                stats={`Humi: ${device?.Humidity?.Data}%`}
                 icon={<Sofa />}
                 color='success'
                 trendNumber='Devi: 5'
                 title='Living room'
-                subtitle='Temp: 26.5*C'
+                subtitle={`Temp: ${device?.Temperature?.Data}°C`}
               />
             </Grid>
             <Grid item xs={6}>
               <CardStatisticsVerticalComponent
-                stats='Humi: 62.3%'
+                stats={`Humi: ${device?.Humidity?.Data}%`}
                 icon={<Countertop />}
                 color='secondary'
                 trendNumber='Devi: 5'
                 title='Kitchen room'
-                subtitle='Temp: 26.5*C'
+                subtitle={`Temp: ${device?.Temperature?.Data}°C`}
               />
             </Grid>
             <Grid item xs={12}>
               <CardStatisticsVerticalComponent
-                stats='Humi: 62.3%'
+                stats={`Humi: ${device?.Humidity?.Data}%`}
                 icon={<BedEmpty />}
                 trendNumber='Devi: 5'
                 title='Bed room'
-                subtitle='Temp: 26.5*C'
+                subtitle={`Temp: ${device?.Temperature?.Data}°C`}
               />
             </Grid>
           </Grid>

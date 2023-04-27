@@ -10,7 +10,7 @@ export const FORGOT_PASS_ENDPOINT = '/api/forgot-password'
 
 export const RESET_PASS_ENDPOINT = '/api/reset-password'
 
-export const DERIVE_ENDPOINT = '/api/drive'
+export const DERIVE_ENDPOINT = '/api/drives'
 
 export const LIGHT_ENDPOINT = '/api/drive/updateLightStatus'
 
@@ -20,7 +20,6 @@ export const NOTIFIES_ENDPOINT = '/api/notifies'
 
 export const USER_ENDPOINT = '/api/user'
 
-export const DEVICE_ENDPOINT = '/api/drive'
 
 
 
