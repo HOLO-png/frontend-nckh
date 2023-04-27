@@ -1,6 +1,6 @@
 import create from 'zustand'
 import { ApiCore } from '../ApiCore'
-import { DERIVE_ENDPOINT } from '../constant/APIEndpoint'
+import { LIGHT_ENDPOINT } from '../constant/APIEndpoint'
 
 export const lefOff = 'https://i.postimg.cc/KjK1wL3c/bulb-off.png'
 export const lefOn = 'https://i.postimg.cc/6QyTynzr/bulb-on.png'
@@ -8,7 +8,7 @@ export const lefOn = 'https://i.postimg.cc/6QyTynzr/bulb-on.png'
 export const useLightStore = create((set, get) => {
   const handleFetchApi = async () => {
     try {
-      const response = await ApiCore.get(DERIVE_ENDPOINT)
+      const response = await ApiCore.get(LIGHT_ENDPOINT)
       const led = response.data.Led?.Status
       set({ isTurnOn: led })
     } catch (error) {

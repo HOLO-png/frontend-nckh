@@ -60,31 +60,31 @@ const Dashboard = () => {
           <Grid container spacing={6}>
             <Grid item xs={6}>
               <CardStatisticsVerticalComponent
-                stats={`Humi: ${device?.Humidity?.Data}%`}
+                stats={`Humi: ${device?.Humidity?.Data.toFixed(2)}%`}
                 icon={<Sofa />}
                 color='success'
                 trendNumber='Devi: 5'
                 title='Living room'
-                subtitle={`Temp: ${device?.Temperature?.Data}°C`}
+                subtitle={`Temp: ${device?.Temperature?.Data.toFixed(2)}°C`}
               />
             </Grid>
             <Grid item xs={6}>
               <CardStatisticsVerticalComponent
-                stats={`Humi: ${device?.Humidity?.Data}%`}
+                stats={`Humi: ${device?.Humidity?.Data.toFixed(2)}%`}
                 icon={<Countertop />}
                 color='secondary'
                 trendNumber='Devi: 5'
                 title='Kitchen room'
-                subtitle={`Temp: ${device?.Temperature?.Data}°C`}
+                subtitle={`Temp: ${device?.Temperature?.Data.toFixed(2)}°C`}
               />
             </Grid>
             <Grid item xs={12}>
               <CardStatisticsVerticalComponent
-                stats={`Humi: ${device?.Humidity?.Data}%`}
+                stats={`Humi: ${device?.Humidity?.Data.toFixed(2)}%`}
                 icon={<BedEmpty />}
                 trendNumber='Devi: 5'
                 title='Bed room'
-                subtitle={`Temp: ${device?.Temperature?.Data}°C`}
+                subtitle={`Temp: ${device?.Temperature?.Data.toFixed(2)}°C`}
               />
             </Grid>
           </Grid>

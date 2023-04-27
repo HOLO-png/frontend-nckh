@@ -272,9 +272,9 @@ const CardBasic = () => {
       <Grid item xs={12} sx={{ paddingBottom: 4 }}>
         <Typography variant='h5'>Control Device</Typography>
       </Grid>
-      <CardTemp data={device?.Temperature?.Data} title="Temperature" description="Temperature is a physical property of matter, roughly understood as a scale of 'hot' and 'cold'. It is the
+      <CardTemp data={device?.Temperature?.Data.toFixed(2)} title="Temperature" description="Temperature is a physical property of matter, roughly understood as a scale of 'hot' and 'cold'. It is the
               manifestation of thermal energy, present in all matter" optionRenders={temperatureOptions} />
-      <CardTemp data={device?.Humidity?.Data} title="Humidity" description="Air humidity is the amount of water vapor present in the air, water in the form of water vapor and difficult to perceive by the human eye. Humidity directly affects the living environment of humans, our daily activities and production." optionRenders={humidityOptions} />
+      <CardTemp data={device?.Humidity?.Data.toFixed(2)} title="Humidity" description="Air humidity is the amount of water vapor present in the air, water in the form of water vapor and difficult to perceive by the human eye. Humidity directly affects the living environment of humans, our daily activities and production." optionRenders={humidityOptions} />
       <CardLed title="Led" description="you can control the lights in your room with just 1 click" optionRenders={ledOptions} />
       <CardSeft title="Anti Theft" description="The safe state will notify you of the risks of unauthorized entry and possible danger to you and your loved ones." optionRenders={safeStateOptions} />
       <CardOnFire title="Anti Fire" description="When there is a fire incident, the fire alarm system is activated and reports the exact location of the incident on the map based on that, the supervisor or the fire protection agency has a plan to handle it promptly and quickly." optionRenders={fireStateOptions} />

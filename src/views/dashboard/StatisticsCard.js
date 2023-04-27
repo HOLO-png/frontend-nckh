@@ -26,13 +26,13 @@ const renderStats = (device) => {
 
   const salesData = [
     {
-      stats: `${device?.Temperature?.Data ?? ''} °C`,
+      stats: `${device?.Temperature?.Data.toFixed(2) ?? ''} °C`,
       title: 'Temperature',
       color: 'primary',
       icon: <TemperatureCelsius sx={{ fontSize: '1.75rem' }} />
     },
     {
-      stats: `${device?.Humidity?.Data ?? ''} %`,
+      stats: `${device?.Humidity?.Data.toFixed(2) ?? ''} %`,
       title: 'Humidity',
       color: 'success',
       icon: <WaterCheckOutline sx={{ fontSize: '1.75rem' }} />
